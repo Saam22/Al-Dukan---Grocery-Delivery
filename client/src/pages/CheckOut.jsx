@@ -1,8 +1,7 @@
+
 function CheckOut() {
   return (
-    <div>
-      
-    </div>
+    <div>CheckOut</div>
   )
 }
 
