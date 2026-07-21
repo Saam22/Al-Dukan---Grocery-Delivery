@@ -1,0 +1,9 @@
+
+function FlashDeals() {
+  return (
+    <div>FlashDeals</div>
+  )
+}
+
+
+export default FlashDeals
