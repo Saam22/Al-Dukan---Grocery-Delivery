@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { heroSectionData } from "../assets/assets"
 import { Link } from "react-router-dom"
-import { BikeIcon } from "lucide-react"
+import { BikeIcon, UserIcon, MailIcon, LockIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion"
 
 const Login = () => {
@@ -10,13 +10,13 @@ const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState("") // Added error state
+    const [error, setError] = useState("")
+    const [showPassword, setShowPassword] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setError("") // Clear previous errors
+        setError("")
         
-        // Basic validation
         if (!email || !password) {
             setError("Please fill in all required fields")
             return
@@ -29,7 +29,6 @@ const Login = () => {
 
         setLoading(true)
         try {
-            // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 1000))
             window.location.href = "/"
         } catch (err) {
@@ -75,7 +74,7 @@ const Login = () => {
                             <button 
                                 onClick={() => {
                                     setIsLogin(!isLogin)
-                                    setError("") // Clear error when switching modes
+                                    setError("")
                                 }} 
                                 className="text-orange-600 font-semibold ml-1 hover:text-orange-700 transition-colors"
                             >
@@ -137,24 +136,27 @@ const Login = () => {
                                     >
                                         Full Name
                                     </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        required={!isLogin}
-                                        placeholder="Full Name"
-                                        className="w-full border border-gray-300 rounded-lg px-4 py-2.5 
-                                                focus:outline-none focus:ring-2 focus:ring-app-green/50 
-                                                focus:border-app-green transition-all duration-200
-                                                placeholder:text-gray-400"
-                                        aria-label="Full name"
-                                    />
+                                    <div className="relative">
+                                        <UserIcon className="size-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            required={!isLogin}
+                                            placeholder="Full Name"
+                                            className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-2.5 
+                                                    focus:outline-none focus:ring-2 focus:ring-app-green/50 
+                                                    focus:border-app-green transition-all duration-200
+                                                    placeholder:text-gray-400"
+                                            aria-label="Full name"
+                                        />
+                                    </div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
 
-                        {/* Email Field */}
+                        {/* Email Field with Icon */}
                         <motion.div
                             className="space-y-1.5"
                             initial={{ opacity: 0, x: -10 }}
@@ -167,23 +169,26 @@ const Login = () => {
                             >
                                 Email Address
                             </label>
-                            <input
-                                type="email"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                placeholder="you@example.com"
-                                className="w-full border border-gray-300 rounded-lg px-4 py-2.5
-                                        focus:outline-none focus:ring-2 focus:ring-app-green/50 
-                                        focus:border-app-green transition-all duration-200
-                                        placeholder:text-gray-400"
-                                aria-label="Email address"
-                                autoComplete="email"
-                            />
+                            <div className="relative">
+                                <MailIcon className="size-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                                <input
+                                    type="email"
+                                    id="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    placeholder="you@example.com"
+                                    className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-2.5
+                                            focus:outline-none focus:ring-2 focus:ring-app-green/50 
+                                            focus:border-app-green transition-all duration-200
+                                            placeholder:text-gray-400"
+                                    aria-label="Email address"
+                                    autoComplete="email"
+                                />
+                            </div>
                         </motion.div>
 
-                        {/* Password Field */}
+                        {/* Password Field with Icon */}
                         <motion.div
                             className="space-y-1.5"
                             initial={{ opacity: 0, x: -10 }}
@@ -197,30 +202,6 @@ const Login = () => {
                                 >
                                     Password
                                 </label>
-
-                            </div>
-                            <input
-                                type="password"
-                                id="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                placeholder={isLogin ? "Enter your password" : "Create a password (min 8 chars)"}
-                                className="w-full border border-gray-300 rounded-lg px-4 py-2.5
-                                        focus:outline-none focus:ring-2 focus:ring-app-green/50 
-                                        focus:border-app-green transition-all duration-200
-                                        placeholder:text-gray-400"
-                                aria-label="Password"
-                                autoComplete={isLogin ? "current-password" : "new-password"}
-                                minLength={6}
-                            />
-                            {!isLogin && (
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Must be at least 6 characters
-                                </p>
-                            )}
-                            
-                        </motion.div>
                                 {isLogin && (
                                     <button
                                         type="button"
@@ -231,6 +212,45 @@ const Login = () => {
                                         Forgot password?
                                     </button>
                                 )}
+                            </div>
+                            <div className="relative">
+                                <LockIcon className="size-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    id="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    placeholder={isLogin ? "Enter your password" : "Create a password (min 6 chars)"}
+                                    className="w-full border border-gray-300 rounded-lg pl-10 pr-12 py-2.5
+                                            focus:outline-none focus:ring-2 focus:ring-app-green/50 
+                                            focus:border-app-green transition-all duration-200
+                                            placeholder:text-gray-400"
+                                    aria-label="Password"
+                                    autoComplete={isLogin ? "current-password" : "new-password"}
+                                    minLength={6}
+                                />
+                                {/* Show/Hide Password Toggle */}
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                >
+                                    {showPassword ? (
+                                        <EyeOffIcon className="size-5" />
+                                    ) : (
+                                        <EyeIcon className="size-5" />
+                                    )}
+                                </button>
+                            </div>
+                            {!isLogin && (
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Must be at least 6 characters
+                                </p>
+                            )}
+                        </motion.div>
+
                         {/* Submit Button */}
                         <motion.button
                             type="submit"
