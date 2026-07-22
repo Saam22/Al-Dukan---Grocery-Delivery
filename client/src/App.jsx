@@ -2,12 +2,16 @@ import {Toaster} from 'react-hot-toast'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Register from './pages/Register'
-import Dashboard from './pages/Dashboard'
 import AppLayout from './pages/AppLayout'
 import Products from './pages/Products'
 import ProductPage from './pages/ProductPage'
 import SearchResults from './pages/SearchResults'
+import FlashDeals from './pages/FlashDeals'
+import CheckOut from './pages/CheckOut'
+import MyOrders from './pages/MyOrders'
+import OrderTracking from './pages/OrderTracking'
+import Addresses from './pages/Addresses'
+import ProductedRoute from './components/ProductedRoute'
 const App = () => {
   return (
     <>
@@ -23,7 +27,7 @@ const App = () => {
             <Route path='products/:id' element={<ProductPage />} />
             <Route path='search' element={<SearchResults />} />
             <Route path='deals' element={<FlashDeals />} />
-            <Route>
+            <Route element={<ProductedRoute />} >
               <Route path='checkout' element={<CheckOut />} />
               <Route path='myorders' element={<MyOrders />} />
               <Route path='myorders/:id' element={<OrderTracking />} />
