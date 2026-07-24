@@ -7,7 +7,7 @@ const Navbar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(5);
   const [cartOpen, setCartOpen] = useState(false);
-  
+
   const navigate = useNavigate();
   const menuRef = useRef(null);
 
@@ -34,47 +34,49 @@ const Navbar = () => {
   return (
     <nav className="bg-white sticky top-0 z-50 border-b border-gray-200 shadow-sm">
       <div className="w-full px-6 sm:px-10 lg:px-16">
-        <div className="flex items-center justify-between h-16 gap-10">
-          
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-xl font-bold text-gray-800 shrink-0">
-            <BikeIcon className="w-6 h-6 text-orange-500" />
+        <div className="grid grid-cols-[1fr_1fr_1.4fr] items-center h-16">
+
+          {/* Logo - أقصى الشمال */}
+          <Link to="/" className="flex items-center gap-2 text-xl font-bold text-gray-800 shrink-0 justify-self-start">
+            <BikeIcon className="w-6 h-6" />
             <span>Al-Dukan</span>
           </Link>
 
-          {/* Middle Section */}
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+          {/* Middle Section - في نص الشاشة بالظبط */}
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600 justify-self-center">
             <Link to="/" className="hover:text-orange-500 transition-colors">Home</Link>
             <Link to="/products" className="hover:text-orange-500 transition-colors">Products</Link>
             <Link to="/deals" className="text-orange-500 font-semibold">Deals</Link>
           </div>
 
-          {/* Search */}
-          <form className="hidden sm:flex flex-1 max-w-md">
-            <div className="relative w-full">
-              <SearchIcon className="absolute top-1/2 -translate-y-1/2 left-3 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-                  }
-                }}
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-sm transition-all"
-              />
-            </div>
-          </form>
+          {/* Right Section: Search + Cart + User */}
+          <div className="flex items-center justify-between gap-4">
 
-          {/* Right Section - Enhanced */}
-          <div className="flex items-center gap-3">
-            
-            {/* Cart Button - Improved */}
-            <button 
-              onClick={() => setCartOpen(true)} 
+            {/* Search - أصغر، وأقرب للنص/Deals */}
+            <form className="hidden sm:flex w-40 lg:w-52">
+              <div className="relative w-full">
+                <SearchIcon className="absolute top-1/2 -translate-y-1/2 left-3 w-4 h-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+                    }
+                  }}
+                  className="w-full pl-9 pr-3 py-1.5 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-sm transition-all"
+                />
+              </div>
+            </form>
+
+            <div className="flex items-center gap-2">
+
+            {/* Cart Button */}
+            <button
+              onClick={() => setCartOpen(true)}
               className="relative p-2.5 rounded-full hover:bg-orange-50 transition-all duration-200 group"
               aria-label="Open shopping cart"
             >
@@ -86,15 +88,15 @@ const Navbar = () => {
               )}
             </button>
 
-            {/* User Menu - Enhanced */}
+            {/* User Menu */}
             <div ref={menuRef} className="relative">
               {user ? (
                 <>
-                  <button 
-                    onClick={() => setUserMenuOpen(!userMenuOpen)} 
+                  <button
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
                     className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-200 ${
-                      userMenuOpen 
-                        ? 'bg-orange-500 text-white shadow-md shadow-orange-500/30' 
+                      userMenuOpen
+                        ? 'bg-orange-500 text-white shadow-md shadow-orange-500/30'
                         : 'hover:bg-gray-100 text-gray-700'
                     }`}
                   >
@@ -109,7 +111,7 @@ const Navbar = () => {
                     }`} />
                   </button>
 
-                  {/* Dropdown Menu - Enhanced */}
+                  {/* Dropdown Menu */}
                   {userMenuOpen && (
                     <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50">
                       {/* User Info Header */}
@@ -132,16 +134,16 @@ const Navbar = () => {
 
                       {/* Menu Items */}
                       <div className="py-2">
-                        <Link 
-                          to="/profile" 
+                        <Link
+                          to="/profile"
                           className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors"
                         >
                           <User className="w-4 h-4" />
                           Profile
                         </Link>
-                        
-                        <Link 
-                          to="/orders" 
+
+                        <Link
+                          to="/orders"
                           className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors"
                         >
                           <Receipt className="w-4 h-4" />
@@ -149,8 +151,8 @@ const Navbar = () => {
                         </Link>
 
                         {user.isAdmin && (
-                          <Link 
-                            to="/admin/dashboard" 
+                          <Link
+                            to="/admin/dashboard"
                             className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors border-t border-gray-100"
                           >
                             <LayoutDashboard className="w-4 h-4" />
@@ -158,8 +160,8 @@ const Navbar = () => {
                           </Link>
                         )}
 
-                        <button 
-                          onClick={handleLogout} 
+                        <button
+                          onClick={handleLogout}
                           className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors border-t border-gray-100"
                         >
                           <LogOut className="w-4 h-4" />
@@ -170,14 +172,15 @@ const Navbar = () => {
                   )}
                 </>
               ) : (
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-full hover:shadow-lg hover:shadow-orange-500/30 transition-all duration-200 hover:scale-105 active:scale-95 text-sm font-medium"
                 >
                   <User className="w-4 h-4" />
                   <span className="hidden sm:inline">Login</span>
                 </Link>
               )}
+            </div>
             </div>
           </div>
         </div>
