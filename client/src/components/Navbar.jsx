@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { BikeIcon, SearchIcon, ShoppingCart, User, LogOut, LayoutDashboard, Receipt, ChevronDown } from "lucide-react";
+import {ZapIcon,ArrowUpRightIcon,ChevronDownIcon,ShieldIcon, BikeIcon, SearchIcon, ShoppingCart, UserIcon,PackageIcon, MapPinIcon, LogOut, LayoutDashboard, Receipt, ChevronDown, XIcon, MenuIcon, Package } from "lucide-react";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -10,14 +10,24 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const menuRef = useRef(null);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery("")
+    }
+  }
 
-  const user = {
-    name: "Saad Mohamed",
-    email: "saad@example.com",
-    isAdmin: true,
-  };
 
+//   const user = null; // Replace with actual user 
+    const user = {
+        name: "Saad Mohamed",
+        email: "Saad@example.com",
+        isAdmin: true,
+    };
   const handleLogout = () => {
+    setUserMenuOpen(false);
+    navigate("/login");
     console.log("Logging out...");
   };
 
@@ -53,7 +63,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between gap-4">
 
             {/* Search - أصغر، وأقرب للنص/Deals */}
-            <form className="hidden sm:flex w-40 lg:w-52">
+            <form onSubmit={handleSearch} className="hidden sm:flex w-40 lg:w-52">
               <div className="relative w-full">
                 <SearchIcon className="absolute top-1/2 -translate-y-1/2 left-3 w-4 h-4 text-gray-400" />
                 <input
@@ -88,99 +98,98 @@ const Navbar = () => {
               )}
             </button>
 
-            {/* User Menu */}
-            <div ref={menuRef} className="relative">
-              {user ? (
-                <>
-                  <button
-                    onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-200 ${
-                      userMenuOpen
-                        ? 'bg-orange-500 text-white shadow-md shadow-orange-500/30'
-                        : 'hover:bg-gray-100 text-gray-700'
-                    }`}
-                  >
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 flex items-center justify-center text-white text-sm font-semibold">
-                      {user.name.charAt(0)}
+                {/* User Menu */}
+                <div className="relative">
+                {user ? (
+                    <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 p-2">
+                    <div className="size-7 rounded-full bg-green-950 text-white flex items-center justify-center font-semibold">
+                        {user.name.charAt(0).toUpperCase()}
                     </div>
-                    <span className="hidden sm:inline text-sm font-medium">
-                      {user.name}
-                    </span>
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
-                      userMenuOpen ? 'rotate-180' : ''
-                    }`} />
-                  </button>
+                    <ChevronDownIcon className="size-3 text-zinc-500" />
+                    </button>
+                ) : (
+                    <div className="flex items-center gap-2">
+                    <Link
+                        to="/login"
+                        className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-950 rounded-full hover:bg-green-900 transition-colors"
+                    >
+                        <UserIcon size={16} />
+                        Sign In
+                    </Link>
+                    {userMenuOpen ? (
+                        <XIcon className="md:hidden" onClick={() => setUserMenuOpen(!userMenuOpen)} />
+                    ) : (
+                        <MenuIcon className="md:hidden" onClick={() => setUserMenuOpen(!userMenuOpen)} />
+                    )}
+                    </div>
+                )}
 
-                  {/* Dropdown Menu */}
-                  {userMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50">
-                      {/* User Info Header */}
-                      <div className="px-4 py-4 bg-gradient-to-r from-orange-50 to-white border-b border-gray-100">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 flex items-center justify-center text-white text-xl font-bold">
-                            {user.name.charAt(0)}
-                          </div>
-                          <div>
-                            <p className="text-sm font-semibold text-gray-800">{user.name}</p>
-                            <p className="text-xs text-gray-500">{user.email}</p>
-                            {user.isAdmin && (
-                              <span className="inline-block mt-1 text-[10px] font-medium px-2 py-0.5 bg-orange-100 text-orange-600 rounded-full">
-                                Admin
-                              </span>
-                            )}
-                          </div>
+                {userMenuOpen && (
+                    <>
+                    <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
+                    <div className="absolute right-0 mt-2.5 w-56 bg-white rounded-xl shadow-lg border border-app-border py-2 z-50 animate-fade-in">
+                        {user && (
+                        <div className="px-4 py-2 border-b border-app-border">
+                            <p className="text-sm font-medium text-zinc-900">{user.name}</p>
+                            <p className="text-xs text-zinc-500">{user.email}</p>
                         </div>
-                      </div>
-
-                      {/* Menu Items */}
-                      <div className="py-2">
-                        <Link
-                          to="/profile"
-                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors"
-                        >
-                          <User className="w-4 h-4" />
-                          Profile
-                        </Link>
-
-                        <Link
-                          to="/orders"
-                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors"
-                        >
-                          <Receipt className="w-4 h-4" />
-                          My Orders
-                        </Link>
-
-                        {user.isAdmin && (
-                          <Link
-                            to="/admin/dashboard"
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-600 transition-colors border-t border-gray-100"
-                          >
-                            <LayoutDashboard className="w-4 h-4" />
-                            Dashboard
-                          </Link>
                         )}
 
-                        <button
-                          onClick={handleLogout}
-                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors border-t border-gray-100"
-                        >
-                          <LogOut className="w-4 h-4" />
-                          Logout
-                        </button>
-                      </div>
+                        <div onClick={() => setUserMenuOpen(false)} className="flex flex-col">
+                        {!user && (
+                            <Link to="/login" className="dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-app-green/5 transition-colors">
+                            <UserIcon size={16} />
+                            Sign In
+                            </Link>
+                        )}
+
+                        {user && (
+                            <Link to="/orders" className="dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-app-green/5 transition-colors">
+                            <PackageIcon size={16} />
+                            My Orders
+                            </Link>
+                        )}
+
+                        {user && (
+                            <Link to="/addresses" className="dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-app-green/5 transition-colors">
+                            <MapPinIcon size={16} />
+                            Addresses
+                            </Link>
+                        )}
+
+                        <Link to="/products" className="dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-app-green/5 transition-colors">
+                            <ArrowUpRightIcon size={16} />
+                            Products
+                        </Link>
+
+                        <Link to="/deals" className="dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-app-green/5 transition-colors">
+                            <ZapIcon size={16} />
+                            Deals
+                        </Link>
+
+                        {user?.isAdmin && (
+                            <Link to="/admin/products" className="dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-app-green/5 transition-colors">
+                            <ShieldIcon className="text-app-orange-dark" size={16} />
+                            <span className="text-app-orange-dark">Admin Panel</span>
+                            </Link>
+                        )}
+
+                        {user && (
+                            <div className="border-t border-app-border pt-1">
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-app-error hover:bg-red-50 w-full transition-colors"
+                            >
+                                <LogOut  size={16} />
+                                Logout
+                            </button>
+                            </div>
+                        )}
+                        </div>
                     </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  to="/login"
-                  className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-full hover:shadow-lg hover:shadow-orange-500/30 transition-all duration-200 hover:scale-105 active:scale-95 text-sm font-medium"
-                >
-                  <User className="w-4 h-4" />
-                  <span className="hidden sm:inline">Login</span>
-                </Link>
-              )}
-            </div>
+                    </>
+                )}
+                </div>
             </div>
           </div>
         </div>
