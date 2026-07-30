@@ -1,5 +1,5 @@
 import React from 'react'
-import { heroSectionData } from "../assets/assets"
+import { heroSectionData } from "../../assets/assets"
 import { ArrowRightIcon, LeafIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -21,7 +21,7 @@ const itemVariants = {
 };
 
 function Hero() {
-  const { hero_image, description, hero_features } = heroSectionData;
+  const { hero_image, description } = heroSectionData;
 
   return (
     <section className='relative overflow-hidden min-h-[600px] lg:min-h-[620px] mb-12 rounded-3xl flex items-center'>
@@ -91,25 +91,6 @@ function Hero() {
           </motion.div>
 
           {/* Feature Strip */}
-          {/* <motion.div
-            variants={itemVariants}
-            className="hidden sm:flex items-center gap-6 mt-12 pt-8 border-t border-white/10"
-          >
-            {hero_features.map((feature, idx) => {
-              const Icon = feature.icon;
-              return (
-                <div key={idx} className="flex items-center gap-2.5 group">
-                  <span className="flex items-center justify-center size-9 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors">
-                    <Icon className="size-4 text-orange-300" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-white">{feature.title}</p>
-                    <p className="text-xs text-white/50">{feature.desc}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </motion.div> */}
         </div>
       </motion.div>
     </section>
