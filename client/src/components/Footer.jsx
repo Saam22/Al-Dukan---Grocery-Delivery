@@ -14,19 +14,28 @@ const Footer = () => {
                     <BikeIcon className='size-6 text-white' />
                     <span className='text-xl font-semibold'>{footerData.brand.name}</span>
                 </Link>
+                
+                <p className='text-sm text-white/70 mb-4'>
+                    {footerData.brand.description}
+                </p>
+                <div className='flex gap-3'>
+                    {footerData.brand.socials.map((social,index)=> (
+                        <a key = {index} href={social.link} className='size-9 rounded-lg bg-white/10 flex-center hover:bg-white/2'>
+                            <social.icon className='size-4'/>
+                        </a>
+                    ))}
+                
+                </div>
+                </div>
+                {/* dynamic section */}
+                {
+                //  footerData.sections.map((section, index) => (
+                     
+                //  ))   
+                }
             </div>
-            <p className='text-sm text-white/70 mb-4'>
-                {footerData.brand.description}
-            </p>
-            <div className='flex gap-3'>
-                {footerData.brand.socials.map((social,index)=> (
-                    <a href={social.link} className='size-9 rounded-lg bg-white/10 flex-center hover:bg-white/2'>
-                        <social.icon className='size-5'/>
-                    </a>
-                    
-                ))}
-            </div>
-            </div>
+
+
             {/* bottom */}
             <div>
 
