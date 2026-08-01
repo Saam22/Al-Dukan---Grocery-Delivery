@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { BikeIcon } from 'lucide-react'
-import { footerData } from '../assets/assets'
 
+import { footerData } from '../assets/assets'
 const Footer = () => {
   return (
     <footer className='bg-app-green text-white'>
@@ -29,16 +29,61 @@ const Footer = () => {
                 </div>
                 {/* dynamic section */}
                 {
-                //  footerData.sections.map((section, index) => (
-                     
-                //  ))   
-                }
+                 footerData.sections.map((section, index) => (
+                     <div key={index}>
+                        <h3 className='text-sm uppercase font-semibold mb-4'>{section.title}</h3>
+                        <ul className='space-y-2'>
+                            {section.links.map((link, index) => (
+                                <li key={index}>
+                                    {link.to ?(
+                                    <Link to={link.to} className='text-sm 
+                                    text-white/70 hover:text-white'>
+                                    {link.label}
+                                    </Link>
+                                    ):(
+                                        <a href={link.href} className='text-sm 
+                                        text-white/70 hover:text-white'>
+                                        {link.label}
+                                        </a>
+                                    )}
+                                </li>
+                            ))}    
+                        </ul>
+                    </div>
+                 ))}
+                 {/* contact */}
+                 <div>
+                    <h3>
+                        <ul>
+                            {footerData.contact.map((contact, index) => {
+                                const Icon = contact.icon;
+                                return (
+                                    <li key={index} className='flex 
+                                    gap-3 text-sm text-white/70'>
+                                        <Icon className='size-4 text-white'/>
+                                        <span>{contact.text}</span>
+                                    </li>
+                                )
+                            }
+                            )}
+                        </ul>
+                    </h3>
+                 </div>
             </div>
 
 
             {/* bottom */}
-            <div>
-
+            <div className='border-t border-white/10 pt-6 mt-10 
+            flex flex-col sm:flex-row items-center justify-between gap-4'>
+                <p className='text-xs text-white/50'>{footerData.bottom.copyright}</p>
+            <div className='flex gap-4'>
+                {footerData.bottom.links.map((link, index) => (
+                    <a key={index} href={link.href} className='text-xs 
+                    text-white/50 hover:text-white/70'>
+                        {link.label}
+                    </a>
+                ))}
+            </div>
             </div>
         </div>
     </footer>

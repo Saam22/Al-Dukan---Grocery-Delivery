@@ -1,8 +1,8 @@
 import React from 'react'
 import Hero from '../components/Home/Hero'
 import AppPromoBanner from '../components/Home/AppPromoBanner'
-import ProductCard from '../components/Home/Productcard'
 import Features from '../components/Home/Features'
+import Cartsidebar from '../components/Home/Cartsidebar'
 import Newsletter from '../components/Home/Newsletter'
 import PopularProducts from '../components/Home/PopularProducts'
 import HomeCategories from '../components/Home/HomeCategories'
@@ -15,6 +15,7 @@ function Home() {
         <PopularProducts />
         <AppPromoBanner/>
         <Newsletter />
+        <Cartsidebar />
     </div>
     
 
