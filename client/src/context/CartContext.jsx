@@ -17,7 +17,7 @@ export function CartProvider({ children }) {
     const savedItems = localStorage.getItem("app_cart");
     return savedItems ? JSON.parse(savedItems) : [];
   });
-  const [isCartOpen, setIsCartOpen] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("app_cart", JSON.stringify(items));
