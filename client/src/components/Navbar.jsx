@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {ZapIcon,ArrowUpRightIcon,ChevronDownIcon,ShieldIcon, BikeIcon, SearchIcon, ShoppingCart, UserIcon,PackageIcon, MapPinIcon, LogOut, LayoutDashboard, Receipt, ChevronDown, XIcon, MenuIcon, Package } from "lucide-react";
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(5);
-  const [cartOpen, setCartOpen] = useState(false);
+  const { cartCount, setIsCartOpen } = useCart();   // ✅
+  // const [cartOpen, setCartOpen] = useState(false);
 
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -86,7 +87,7 @@ const Navbar = () => {
 
             {/* Cart Button */}
             <button
-              onClick={() => setCartOpen(true)}
+              onClick={() => setIsCartOpen(true)}
               className="relative p-2.5 rounded-full hover:bg-orange-50 transition-all duration-200 group"
               aria-label="Open shopping cart"
             >

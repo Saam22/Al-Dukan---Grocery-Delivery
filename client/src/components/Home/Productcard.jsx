@@ -1,12 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 import { Star, ShoppingCart,  Heart,Plus } from "lucide-react";
 const ProductCard = ({ product }) => {
   const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
 
-  const { addToCart } = {
-    addToCart: (_data) => {},
-  };
+  const { addToCart } = useCart();
   const navigate = useNavigate();
 
   return (
