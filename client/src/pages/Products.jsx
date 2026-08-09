@@ -4,6 +4,7 @@ import { categoriesData, dummyProducts } from "../assets/assets";
 import { Link } from "react-router-dom";
 import { X,Home,ChevronDown, SlidersHorizontal } from "lucide-react";
 import ProductCard from "../components/Home/Productcard";
+import Loading from "../components/Loading";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -89,12 +90,94 @@ const fetchProducts = async () => {
         </nav>
         <div className="flex xl:gap-10 gap-8">
           {/* sidebar */}
-          <aside className="hidden lg:block w-64 shrink-0">
-            <div className="bg-white rounded-2xl p-4 sticky top-24">
-              <p>Filter</p>
+{/* sidebar */}
+<aside className="hidden lg:block w-64 shrink-0">
+  <div className="bg-white rounded-2xl p-5 sticky top-24 space-y-6">
+
+    {/* header */}
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2">
+        <SlidersHorizontal className="size-4" />
+        <h3 className="font-semibold text-sm">Filters</h3>
+      </div>
+      {hasFilters && (
+        <button
+          onClick={clearFilters}
+          className="text-xs font-medium text-app-green hover:underline"
+        >
+          Clear all
+        </button>
+      )}
+    </div>
+
+            {/* categories */}
+            <div>
+              <h4 className="text-sm font-medium mb-3">Category</h4>
+              <div className="space-y-2">
+                <button
+                  onClick={() => updateFilters("category", "")}
+                  className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors ${
+                    category === ""
+                      ? "bg-app-green/10 text-app-green font-medium"
+                      : "text-app-text-light hover:bg-app-cream"
+                  }`}
+                >
+                  All Categories
+                </button>
+                {categoriesData.map((cat) => (
+                  <button
+                    key={cat.slug}
+                    onClick={() => updateFilters("category", cat.slug)}
+                    className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors ${
+                      category === cat.slug
+                        ? "bg-app-green/10 text-app-green font-medium"
+                        : "text-app-text-light hover:bg-app-cream"
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
             </div>
-          </aside>
-          {/* main content */}
+
+            {/* organic */}
+            <div className="pt-4 border-t border-app-border">
+              <label className="flex items-center gap-2.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={organic === "true"}
+                  onChange={(e) => updateFilters("organic", e.target.checked ? "true" : "")}
+                  className="size-4 rounded accent-app-green cursor-pointer"
+                />
+                <span className="text-sm">Organic only</span>
+              </label>
+            </div>
+
+            {/* price range */}
+            <div className="pt-4 border-t border-app-border">
+              <h4 className="text-sm font-medium mb-3">Price Range</h4>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  placeholder="Min"
+                  value={minPrice}
+                  onChange={(e) => updateFilters("minPrice", e.target.value)}
+                  className="w-full px-3 py-2 text-sm border border-app-border rounded-lg focus:outline-none focus:ring-2 focus:ring-app-green/30"
+                />
+                <span className="text-app-text-light text-sm">-</span>
+                <input
+                  type="number"
+                  placeholder="Max"
+                  value={maxPrice}
+                  onChange={(e) => updateFilters("maxPrice", e.target.value)}
+                  className="w-full px-3 py-2 text-sm border border-app-border rounded-lg focus:outline-none focus:ring-2 focus:ring-app-green/30"
+                />
+              </div>
+            </div>
+
+          </div>
+        </aside>
+            {/* main content */}
           <main className="flex-1">
             {/* header */}
             <div className="flex items-center justify-between mb-6">
@@ -104,16 +187,26 @@ const fetchProducts = async () => {
                   {products.length} products found
                 </p>
               </div>
-              <div className="flex flex-col lg:items-center gap-3">
+              <div className="flex items-center gap-3">
                 {/* mobile filters button */}
                 <button
+                  type="button"
                   onClick={() => setMobileFiltersOpen(true)}
-                  className="lg:hidden flex items-center gap-2 px-3 py-2 text-sm 
-                  bg-white rounded-xl border border-app-border hover:bg-app-cream 
-                  transition-colors"
+                  className={`lg:hidden flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl border transition-colors ${
+                    hasFilters
+                      ? "bg-app-green/10 border-app-green text-app-green"
+                      : "bg-white border-app-border text-zinc-700 hover:bg-app-cream"
+                  }`}
                 >
-                  <SlidersHorizontal className="size-4" /> Filters
+                  <SlidersHorizontal className="size-4" />
+                  Filters
+                  {hasFilters && (
+                    <span className="flex items-center justify-center size-5 text-[10px] font-bold text-white bg-app-green rounded-full">
+                      {[category, organic, sort, minPrice, maxPrice].filter(Boolean).length}
+                    </span>
+                  )}
                 </button>
+
                 {/* sort dropdown */}
                 <div className="relative">
                   <select
@@ -132,12 +225,29 @@ const fetchProducts = async () => {
                 </div>
               </div>
             </div>
+
             {/* products grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-            </div>
+            {loading ? (
+              <Loading />
+            ) : products.length === 0 ? (
+              <div className="text-center py-16">
+                <p className="text-lg font-semibold text-app-green mb-2">No products found.</p>
+                <p className="text-sm text-app-light mb-4">Try changing your filters.</p>
+                <button
+                  onClick={clearFilters}
+                  className="px-5 py-2.5 text-sm font-medium text-white bg-green-800 rounded-xl hover:bg-green-700 transition-colors"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
+
             {/* pagination */}
             <div className="flex items-center justify-center mt-8">
               <div className="flex items-center gap-2">
@@ -154,25 +264,119 @@ const fetchProducts = async () => {
                 ))}
               </div>
             </div>
-            {/* mobile filters */}
+
+            {/* mobile filters panel */}
             <div
-              className={`fixed inset-0 bg-app-cream z-10 overflow-y-auto ${
+              className={`fixed inset-0 z-[60] transition-transform duration-300 ${
                 mobileFiltersOpen ? "translate-x-0" : "translate-x-full"
               }`}
             >
-              <div className="flex items-center justify-between p-4">
-                <h2 className="text-lg font-medium">Filters</h2>
-                <button
-                  onClick={() => setMobileFiltersOpen(false)}
-                  className="text-app-text-light hover:text-app-text transition-colors"
-                >
-                  <X className="size-4" />
-                </button>
-              </div>
-              <div className="p-4">
-                <div className="mb-4">
-                  <h3 className="text-sm font-medium mb-2">Categories</h3>
-                  
+              {/* overlay خلفية */}
+              <div
+                onClick={() => setMobileFiltersOpen(false)}
+                className="absolute inset-0 bg-black/40"
+              />
+
+              {/* panel نفسها */}
+              <div className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-2xl overflow-y-auto">
+                <div className="flex items-center justify-between p-4 border-b border-app-border sticky top-0 bg-white z-10">
+                  <h2 className="text-lg font-semibold">Filters</h2>
+                  <button
+                    type="button"
+                    onClick={() => setMobileFiltersOpen(false)}
+                    className="p-2 rounded-full hover:bg-app-cream transition-colors"
+                  >
+                    <X className="size-5" />
+                  </button>
+                </div>
+
+                <div className="p-4 space-y-6">
+                  {/* categories */}
+                  <div>
+                    <h3 className="text-sm font-medium mb-3">Category</h3>
+                    <div className="space-y-2">
+                      <button
+                        type="button"
+                        onClick={() => updateFilters("category", "")}
+                        className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors ${
+                          category === ""
+                            ? "bg-app-green/10 text-app-green font-medium"
+                            : "text-app-text-light hover:bg-app-cream"
+                        }`}
+                      >
+                        All Categories
+                      </button>
+                      {categoriesData.map((cat) => (
+                        <button
+                          type="button"
+                          key={cat.slug}
+                          onClick={() => updateFilters("category", cat.slug)}
+                          className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors ${
+                            category === cat.slug
+                              ? "bg-app-green/10 text-app-green font-medium"
+                              : "text-app-text-light hover:bg-app-cream"
+                          }`}
+                        >
+                          {cat.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* organic */}
+                  <div className="pt-4 border-t border-app-border">
+                    <label className="flex items-center gap-2.5 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={organic === "true"}
+                        onChange={(e) => updateFilters("organic", e.target.checked ? "true" : "")}
+                        className="size-4 rounded accent-app-green cursor-pointer"
+                      />
+                      <span className="text-sm">Organic only</span>
+                    </label>
+                  </div>
+
+                  {/* price range */}
+                  <div className="pt-4 border-t border-app-border">
+                    <h3 className="text-sm font-medium mb-3">Price Range</h3>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        placeholder="Min"
+                        value={minPrice}
+                        onChange={(e) => updateFilters("minPrice", e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-app-border rounded-lg focus:outline-none focus:ring-2 focus:ring-app-green/30"
+                      />
+                      <span className="text-app-text-light text-sm">-</span>
+                      <input
+                        type="number"
+                        placeholder="Max"
+                        value={maxPrice}
+                        onChange={(e) => updateFilters("maxPrice", e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-app-border rounded-lg focus:outline-none focus:ring-2 focus:ring-app-green/30"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* footer ثابت في الأسفل */}
+                <div className="p-4 border-t border-app-border sticky bottom-0 bg-white flex gap-3">
+                  {hasFilters && (
+                    <button
+                      type="button"
+                      onClick={clearFilters}
+                      className="flex-1 px-4 py-2.5 rounded-xl border border-app-border text-sm font-medium hover:bg-app-cream transition-colors"
+                    >
+                      Clear All
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setMobileFiltersOpen(false)}
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-app-green text-white text-sm font-semibold hover:bg-app-green/90 transition-colors"
+                  >
+                    Show Results
+                  </button>
                 </div>
               </div>
             </div>

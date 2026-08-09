@@ -46,12 +46,12 @@ export const deliveryPartnerLoginImage = "https://images.unsplash.com/photo-1610
 
 export const appPromoBannerData = {
     title: "Get fresh groceries in minutes",
-    description: "Download Al-Dukan app for exclusive deals, real-time tracking, and the freshest selection delivered right to your door.",
+    description: "Download Al-Dukkan app for exclusive deals, real-time tracking, and the freshest selection delivered right to your door.",
 };
 
 export const footerData = {
     brand: {
-        name: "Al-Dukan",
+        name: "Al-Dukkan",
         description: "Bringing fresh, organic groceries straight from local farms to your doorstep. Nourish your home with Earth's finest.",
         socials: [
             { icon: SiFacebook, link: "#" },
@@ -84,11 +84,11 @@ export const footerData = {
     contact: [
         { icon: MapPinIcon, text: "123 Main Street Badr City, Egypt" },
         { icon: PhoneIcon, text: "0201018310038" },
-        { icon: MailIcon, text: "Al-Dukan@example.com" },
+        { icon: MailIcon, text: "Al-Dukkan@example.com" },
     ],
 
     bottom: {
-        copyright: "© 2026 Saad Al-Dukan. All rights reserved.",
+        copyright: "© 2026 Saad Al-Dukkan. All rights reserved.",
         links: [
             { label: "Privacy Policy", href: "#" },
             { label: "Terms of Service", href: "#" },
@@ -624,6 +624,7 @@ export const dummyProducts = [
         discount: 10,
         id: "69c22613ae75a98c7cd13b26",
     },
+    
 ];
 
 export const dummyAdminDashboardData = {
@@ -852,6 +853,6 @@ export const dummyCartData = [
 ];
 
 export const dummyAddressData = [
-    { label: "Home", address: "123 Main St ", city: "New York ", state: "NY", zip: "10001", isDefault: true, lat: 40.7128, lng: -74.006, _id: "69d3652df9a340288f1a0f8c" },
-    { label: "Work", address: "456 Market St ", city: "New York ", state: "NY", zip: "10002", isDefault: false, lat: 40.7128, lng: -74.006, _id: "69d3652df9a340288f1a0f8d" },
+    { label: "Home", address: "123 Badr St ", city: "Cairo ", state: "NY", zip: "10001", isDefault: true, lat: 40.7128, lng: -74.006, _id: "69d3652df9a340288f1a0f8c" },
+    { label: "Work", address: "456 Badr St ", city: "Cairo ", state: "NY", zip: "10002", isDefault: false, lat: 40.7128, lng: -74.006, _id: "69d3652df9a340288f1a0f8d" },
 ];

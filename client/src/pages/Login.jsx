@@ -89,7 +89,7 @@ const Login = () => {
                         transition={{ duration: 0.4 }}
                         className="text-4xl font-bold text-white mb-4"
                     >
-                        {isLogin ? "Welcome Back!" : "Join Al-Dukan today"}
+                        {isLogin ? "Welcome Back!" : "Join Al-Dukkan today"}
                     </motion.h2>
                     <motion.p 
                         key={isLogin ? "login-sub" : "register-sub"}
@@ -113,7 +113,7 @@ const Login = () => {
                     <div className="text-center mb-8">
                         <Link to="/" className="inline-flex items-center gap-2 mb-6">
                             <BikeIcon className="size-8 text-app-green" />
-                            <span className="text-3xl font-bold text-app-green">Al-Dukan</span>
+                            <span className="text-3xl font-bold text-app-green">Al-Dukkan</span>
                         </Link>
                         
                         <AnimatePresence mode="wait">

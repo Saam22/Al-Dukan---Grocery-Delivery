@@ -50,7 +50,7 @@ const Navbar = () => {
           {/* Logo - أقصى الشمال */}
           <Link to="/" className="flex items-center gap-2 text-xl font-bold text-gray-800 shrink-0 justify-self-start">
             <BikeIcon className="w-6 h-6" />
-            <span>Al-Dukan</span>
+            <span>Al-Dukkan</span>
           </Link>
 
           {/* Middle Section - في نص الشاشة بالظبط */}
