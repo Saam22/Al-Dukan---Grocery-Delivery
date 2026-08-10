@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { X,Home,ChevronDown, SlidersHorizontal } from "lucide-react";
 import ProductCard from "../components/Home/Productcard";
 import Loading from "../components/Loading";
-
+import Filterpanel from "../components/FilterPanel";
 const Products = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -90,93 +90,14 @@ const fetchProducts = async () => {
         </nav>
         <div className="flex xl:gap-10 gap-8">
           {/* sidebar */}
-{/* sidebar */}
-<aside className="hidden lg:block w-64 shrink-0">
-  <div className="bg-white rounded-2xl p-5 sticky top-24 space-y-6">
+          {/* sidebar */}
+          <aside className="hidden lg:block w-64 shrink-0">
+            <div className="bg-white rounded-2xl p-5 sticky top-24 space-y-6">
+              <Filterpanel categories={categoriesData}category={category} 
+              organic={organic} minprice={minPrice} maxprice={maxPrice} updateFilter={updateFilters} clearFilters={clearFilters} hasFilters={hasFilters}/>
 
-    {/* header */}
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <SlidersHorizontal className="size-4" />
-        <h3 className="font-semibold text-sm">Filters</h3>
-      </div>
-      {hasFilters && (
-        <button
-          onClick={clearFilters}
-          className="text-xs font-medium text-app-green hover:underline"
-        >
-          Clear all
-        </button>
-      )}
-    </div>
-
-            {/* categories */}
-            <div>
-              <h4 className="text-sm font-medium mb-3">Category</h4>
-              <div className="space-y-2">
-                <button
-                  onClick={() => updateFilters("category", "")}
-                  className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors ${
-                    category === ""
-                      ? "bg-app-green/10 text-app-green font-medium"
-                      : "text-app-text-light hover:bg-app-cream"
-                  }`}
-                >
-                  All Categories
-                </button>
-                {categoriesData.map((cat) => (
-                  <button
-                    key={cat.slug}
-                    onClick={() => updateFilters("category", cat.slug)}
-                    className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors ${
-                      category === cat.slug
-                        ? "bg-app-green/10 text-app-green font-medium"
-                        : "text-app-text-light hover:bg-app-cream"
-                    }`}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
-              </div>
             </div>
-
-            {/* organic */}
-            <div className="pt-4 border-t border-app-border">
-              <label className="flex items-center gap-2.5 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={organic === "true"}
-                  onChange={(e) => updateFilters("organic", e.target.checked ? "true" : "")}
-                  className="size-4 rounded accent-app-green cursor-pointer"
-                />
-                <span className="text-sm">Organic only</span>
-              </label>
-            </div>
-
-            {/* price range */}
-            <div className="pt-4 border-t border-app-border">
-              <h4 className="text-sm font-medium mb-3">Price Range</h4>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  placeholder="Min"
-                  value={minPrice}
-                  onChange={(e) => updateFilters("minPrice", e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-app-border rounded-lg focus:outline-none focus:ring-2 focus:ring-app-green/30"
-                />
-                <span className="text-app-text-light text-sm">-</span>
-                <input
-                  type="number"
-                  placeholder="Max"
-                  value={maxPrice}
-                  onChange={(e) => updateFilters("maxPrice", e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-app-border rounded-lg focus:outline-none focus:ring-2 focus:ring-app-green/30"
-                />
-              </div>
-            </div>
-
-          </div>
-        </aside>
+          </aside>
             {/* main content */}
           <main className="flex-1">
             {/* header */}
