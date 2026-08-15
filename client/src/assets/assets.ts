@@ -120,7 +120,7 @@ const reviewerNames = [
     "Amir F.", "Nourhan A.",
 ];
 
-const commentsByRating = {
+const commentsByRating: Record<number, string[]> = {
     5: [
         "Exceeded my expectations. The taste and freshness were top-notch. Five stars!",
         "Absolutely love this product! Fresh and great quality. Will definitely order again.",
@@ -137,7 +137,7 @@ const commentsByRating = {
     ],
 };
 
-const seededRandom = (seed) => {
+const seededRandom = (seed: number) => {
     let value = seed;
     return () => {
         value = (value * 9301 + 49297) % 233280;
@@ -145,21 +145,21 @@ const seededRandom = (seed) => {
     };
 };
 
-const hashString = (str) =>
-    str.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+const hashString = (str: string) =>
+    str.split("").reduce<number>((acc, char) => acc + char.charCodeAt(0), 0);
 
-const generateReviews = (product) => {
+const generateReviews = (product: { reviewCount?: number; _id: string; rating?: number }) => {
     const count = product.reviewCount || 0;
     if (count === 0) return [];
 
     const random = seededRandom(hashString(product._id));
     const baseDate = new Date("2026-04-06");
-    const reviews = [];
+    const reviews: Array<{ id: number; name: string; date: string; rating: number; comment: string; helpful: number }> = [];
 
     for (let i = 0; i < count; i++) {
         const roll = random();
         const starRating =
-            roll > 0.7 ? 5 : roll > 0.3 ? 4 : roll > 0.1 ? 3 : Math.round(product.rating) || 4;
+            roll > 0.7 ? 5 : roll > 0.3 ? 4 : roll > 0.1 ? 3 : Math.round(product.rating ?? 4) || 4;
 
         const pool = commentsByRating[starRating] || commentsByRating[4];
         const comment = pool[Math.floor(random() * pool.length)];
@@ -178,7 +178,7 @@ const generateReviews = (product) => {
         });
     }
 
-    return reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+    return reviews.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 
 /* ----------------------------------------------------------------------- */
