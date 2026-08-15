@@ -96,7 +96,7 @@ export const footerData = {
     },
 };
 
-export const statusColors: Record<string, string> = {
+export const statusColors = {
     Placed: "bg-blue-100 text-blue-700",
     Confirmed: "bg-indigo-100 text-indigo-700",
     Packed: "bg-purple-100 text-purple-700",
@@ -110,7 +110,82 @@ export const iconsForLeafpad = {
     destination: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
 };
 
-export const dummyProducts = [
+/* ----------------------------------------------------------------------- */
+/* Review generation helpers (deterministic — same product = same reviews) */
+/* ----------------------------------------------------------------------- */
+
+const reviewerNames = [
+    "Sneha T.", "Rahul M.", "Karan P.", "Ananya S.", "Omar K.",
+    "Mona R.", "Ahmed S.", "Laila H.", "Youssef N.", "Hana E.",
+    "Amir F.", "Nourhan A.",
+];
+
+const commentsByRating = {
+    5: [
+        "Exceeded my expectations. The taste and freshness were top-notch. Five stars!",
+        "Absolutely love this product! Fresh and great quality. Will definitely order again.",
+        "Perfect every time. Fast delivery and excellent packaging.",
+    ],
+    4: [
+        "Quality is decent but expected it to be a bit fresher. Still a solid buy overall.",
+        "Good value for the price. Packaging was neat and delivery was on time.",
+        "Really happy with this, just wish the portion was a little bigger.",
+    ],
+    3: [
+        "It's okay, nothing special but does the job.",
+        "Average quality for the price, might try something else next time.",
+    ],
+};
+
+const seededRandom = (seed) => {
+    let value = seed;
+    return () => {
+        value = (value * 9301 + 49297) % 233280;
+        return value / 233280;
+    };
+};
+
+const hashString = (str) =>
+    str.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+
+const generateReviews = (product) => {
+    const count = product.reviewCount || 0;
+    if (count === 0) return [];
+
+    const random = seededRandom(hashString(product._id));
+    const baseDate = new Date("2026-04-06");
+    const reviews = [];
+
+    for (let i = 0; i < count; i++) {
+        const roll = random();
+        const starRating =
+            roll > 0.7 ? 5 : roll > 0.3 ? 4 : roll > 0.1 ? 3 : Math.round(product.rating) || 4;
+
+        const pool = commentsByRating[starRating] || commentsByRating[4];
+        const comment = pool[Math.floor(random() * pool.length)];
+        const name = reviewerNames[Math.floor(random() * reviewerNames.length)];
+
+        const date = new Date(baseDate);
+        date.setDate(date.getDate() - Math.floor(random() * 60));
+
+        reviews.push({
+            id: i + 1,
+            name,
+            date: date.toISOString().slice(0, 10),
+            rating: starRating,
+            comment,
+            helpful: Math.floor(random() * 20),
+        });
+    }
+
+    return reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+};
+
+/* ----------------------------------------------------------------------- */
+/* Products                                                                 */
+/* ----------------------------------------------------------------------- */
+
+const rawDummyProducts = [
     {
         _id: "69c22613ae75a98c7cd13b3b",
         name: "Butter Croissant 100g",
@@ -624,8 +699,12 @@ export const dummyProducts = [
         discount: 10,
         id: "69c22613ae75a98c7cd13b26",
     },
-    
 ];
+
+export const dummyProducts = rawDummyProducts.map((product) => ({
+    ...product,
+    reviews: generateReviews(product),
+}));
 
 export const dummyAdminDashboardData = {
     totalOrders: 1,
