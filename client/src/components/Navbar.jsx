@@ -145,7 +145,7 @@ const Navbar = () => {
                         )}
 
                         {user && (
-                            <Link to="/orders" className="dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-app-green/5 transition-colors">
+                            <Link to="/myorders" className="dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-app-green/5 transition-colors">
                             <PackageIcon size={16} />
                             My Orders
                             </Link>
