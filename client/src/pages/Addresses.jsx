@@ -1,8 +1,10 @@
+import React from 'react'
 
-
-function Addresses() {
+const Addresses = () => {
   return (
-    <div>Addresses</div>
+    <div>
+      
+    </div>
   )
 }
 
