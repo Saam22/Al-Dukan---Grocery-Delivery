@@ -699,8 +699,7 @@ const rawDummyProducts = [
         discount: 10,
         id: "69c22613ae75a98c7cd13b26",
     },
-<<<<<<< HEAD
-=======
+
     {
         _id: "761f583af8e2b349d246352a",
         name: "Shampoo 400ml",
@@ -1081,7 +1080,7 @@ const rawDummyProducts = [
         discount: 17,
         id: "c8cd94a9880219c2e3e5c3a8",
     },
->>>>>>> 04ba384 (first commit)
+
 ];
 
 export const dummyProducts = rawDummyProducts.map((product) => ({
@@ -1092,11 +1091,11 @@ export const dummyProducts = rawDummyProducts.map((product) => ({
 export const dummyAdminDashboardData = {
     totalOrders: 1,
     totalUsers: 3,
-<<<<<<< HEAD
+
     totalProducts: 27,
-=======
+
     totalProducts: 47,
->>>>>>> 04ba384 (first commit)
+
     outOfStock: 0,
     totalPartners: 2,
     recentOrders: [
