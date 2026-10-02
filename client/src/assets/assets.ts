@@ -1245,7 +1245,7 @@ export const dummyDashboardOrdersData = [
         items: [
             {
                 product: "69c22613ae75a98c7cd13b3b",
-                name: "Butter Croissant 100g",
+                name: "Croissant 100g",
                 image: "https://raw.githubusercontent.com/avinashdm/gs-images/main/greencart/zvoeqbvrbrt7atqj0dbu.png",
                 price: 45,
                 quantity: 2,
