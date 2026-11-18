@@ -5,8 +5,7 @@ import { dummyProducts, categoriesData } from "../assets/assets";
 import { Star, Minus, Plus, ShoppingCart, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 import ProductCard from "../components/Home/Productcard";
 import Loading from "../components/Loading";
-import DummyReviewsSection from "../components/dummyreviewssection";
-
+import DummyReviewsSection from "../components/Dummyreviewssection.JSX";
 const ProductPage = () => {
   const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
   const { id } = useParams();
