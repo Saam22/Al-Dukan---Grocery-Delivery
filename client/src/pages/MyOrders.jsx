@@ -68,7 +68,7 @@ const MyOrders = () => {
         <h1 className="text-2xl font-semibold text-app-green mb-6">My Orders</h1>
 
         {/* tabs */}
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -118,7 +118,7 @@ const MyOrders = () => {
                       {formatDate(order.createdAt)}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span
                       className={`text-xs font-semibold px-3 py-1 rounded-full ${
                         statusColors[order.status] || "bg-app-border text-app-text-light"
@@ -151,7 +151,7 @@ const MyOrders = () => {
                           Qty: {item.quantity} · {item.unit}
                         </p>
                       </div>
-                      <p className="text-sm font-medium">
+                      <p className="text-sm font-medium shrink-0">
                         {currency}
                         {(item.price * item.quantity).toFixed(2)}
                       </p>
@@ -160,7 +160,7 @@ const MyOrders = () => {
                 </div>
 
                 {/* footer: payment + total */}
-                <div className="flex items-center justify-between pt-3 border-t border-app-border">
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-app-border">
                   <p className="text-sm text-app-text-light">
                     {order.paymentMethod === "cash" ? "Cash on Delivery" : "Paid Online"}
                   </p>

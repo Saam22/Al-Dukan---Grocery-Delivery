@@ -1,11 +1,11 @@
 import {assets, appPromoBannerData } from '../../assets/assets'
 const AppPromoBanner = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 my-14 bg-green-950 rounded-2xl">
+    <section className="w-full mx-auto px-5 sm:px-8 lg:px-10 py-12 sm:py-16 lg:py-20 my-10 sm:my-14 bg-green-950 rounded-2xl">
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 xl:px-">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-center md:text-left">
-                <h2 className="text-3xl font-serif sm:text-4xl text-white mb-3">
+                <h2 className="text-2xl font-serif sm:text-3xl lg:text-4xl text-white mb-3">
                     {appPromoBannerData.title}
                 </h2>
                 <p className="text-white/70 mb-6 max-w-md">
@@ -36,7 +36,7 @@ const AppPromoBanner = () => {
                 </div>
             </div>
             {/* right side */}
-        <img src={assets.delivery_truck} alt="Delivery Truck" className="max-w-60 sm:max-w-120 xl:pr-10" />
+        <img src={assets.delivery_truck} alt="Delivery Truck" className="w-full max-w-[240px] sm:max-w-xs lg:max-w-sm xl:pr-10" />
 
         </div>
         

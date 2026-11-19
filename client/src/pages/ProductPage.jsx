@@ -65,7 +65,7 @@ const ProductPage = () => {
             {categoryName}
           </Link>
           <ChevronRight className="size-3.5" />
-          <span className="text-app-text font-medium truncate max-w-[200px]">{product.name}</span>
+          <span className="text-app-text font-medium truncate max-w-[140px] sm:max-w-[220px]">{product.name}</span>
         </nav>
 
         {/* back link */}
@@ -77,9 +77,9 @@ const ProductPage = () => {
           Back
         </button>
 
-        <div className="grid md:grid-cols-2 gap-10">
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
           {/* image */}
-          <div className="relative bg-white rounded-2xl p-8 flex items-center justify-center">
+          <div className="relative bg-white rounded-2xl p-5 sm:p-8 flex items-center justify-center">
             {product.discount > 0 && (
               <span className="absolute top-4 left-4 bg-app-error text-white text-xs font-semibold px-2.5 py-1 rounded-full">
                 {product.discount}% OFF
@@ -122,8 +122,8 @@ const ProductPage = () => {
             </div>
 
             {/* quantity selector */}
-            <div className="flex items-center gap-4 mb-6">
-              <div className="flex items-center gap-3 bg-white rounded-full px-2 py-2 border border-app-border">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
+              <div className="flex items-center justify-between sm:justify-start gap-3 bg-white rounded-full px-2 py-2 border border-app-border">
                 <button
                   onClick={handleDecrease}
                   disabled={localQuantity <= 1}
@@ -144,7 +144,7 @@ const ProductPage = () => {
               <button
                 onClick={() => addToCart(product, localQuantity)}
                 disabled={outOfStock}
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-app-green text-white font-semibold hover:bg-app-green/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-app-green"
+                className="w-full sm:flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-app-green text-white font-semibold hover:bg-app-green/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-app-green"
               >
                 <ShoppingCart className="size-4" />
                 Add to Cart
@@ -174,8 +174,8 @@ const ProductPage = () => {
         {/* related products */}
         {relatedProducts.length > 0 && (
           <div className="mt-16">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold">
+            <div className="flex items-center justify-between gap-3 mb-6">
+              <h2 className="text-lg sm:text-xl font-semibold min-w-0 truncate">
                 More from {categoryName}
               </h2>
               <Link
@@ -185,7 +185,7 @@ const ProductPage = () => {
                 View All
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
               {relatedProducts.map((p) => (
                 <ProductCard key={p._id} product={p} />
               ))}

@@ -108,7 +108,7 @@ const Login = () => {
             
             {/* Right side - Form Container */}
             <div className="flex-1 flex items-center justify-center px-4 py-12 bg-app-cream relative">
-                <div className="w-full max-w-md">
+                <div className="w-full max-w-md min-w-0">
                     {/* Logo and Header */}
                     <div className="text-center mb-8">
                         <Link to="/" className="inline-flex items-center gap-2 mb-6">
@@ -172,7 +172,7 @@ const Login = () => {
                                     transformStyle: "preserve-3d",
                                     backfaceVisibility: "hidden"
                                 }}
-                                className="bg-white shadow-lg rounded-xl px-8 py-8 space-y-5"
+                                className="bg-white shadow-lg rounded-xl px-5 sm:px-8 py-6 sm:py-8 space-y-5"
                             >
                                 {/* Error Message */}
                                 <AnimatePresence mode="wait">

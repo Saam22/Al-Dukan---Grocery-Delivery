@@ -19,14 +19,14 @@ const FlashDeals = () => {
   return (
     <div className='min-h-screen bg-app-cream'>
       {/* banner */}
-      <div className='bg-linear-to-r from-app-orange to-app-orange-dark text-white py-12'>
+      <div className='bg-linear-to-r from-app-orange to-app-orange-dark text-white py-8 sm:py-12'>
         <div className='max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto text-center'>
-          <div className='flex items-center justify-center gap-3 mb-2'>
-            <Zap className='w-7 h-7 fill-white' />
-            <h1 className='text-3xl font-bold'>Flash Deals</h1>
-            <Zap className='w-7 h-7 fill-white' />
+          <div className='flex items-center justify-center gap-2 sm:gap-3 mb-2'>
+            <Zap className='w-5 h-5 sm:w-7 sm:h-7 fill-white' />
+            <h1 className='text-2xl sm:text-3xl font-bold'>Flash Deals</h1>
+            <Zap className='w-5 h-5 sm:w-7 sm:h-7 fill-white' />
           </div>
-          <p className='text-sm text-white/80'>
+          <p className='text-xs sm:text-sm text-white/80 max-w-2xl mx-auto'>
             Limited-time offers on your organic products. Grab the best deals before they are gone!
           </p>
         </div>
@@ -46,7 +46,7 @@ const FlashDeals = () => {
             <p className='text-sm text-app-text-light'>Check back soon for new offers!</p>
           </div>
         ) : (
-          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4'>
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4'>
             {products.map((product) => product.stock > 0 && (
               <ProductCard key={product._id} product={product} />
             ))}

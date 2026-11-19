@@ -140,7 +140,7 @@ const OrderTracking = () => {
         {/* header */}
         <div className="flex items-start justify-between flex-wrap gap-2 mb-6">
           <div>
-            <h1 className="text-2xl font-semibold">
+            <h1 className="text-xl sm:text-2xl font-semibold">
               Order #{order._id.slice(-8).toUpperCase()}
             </h1>
             <p className="text-sm text-app-text-light mt-0.5">
@@ -156,7 +156,7 @@ const OrderTracking = () => {
           </span>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
           {/* left column */}
           <div className="md:col-span-2 space-y-6">
             {/* delivery OTP */}
@@ -173,11 +173,11 @@ const OrderTracking = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   {otpDigits.map((digit, index) => (
                     <div
                       key={index}
-                      className="size-12 rounded-lg bg-white/10 flex items-center justify-center text-xl font-bold"
+                      className="size-10 sm:size-12 rounded-lg bg-white/10 flex items-center justify-center text-lg sm:text-xl font-bold"
                     >
                       {digit}
                     </div>
@@ -192,7 +192,8 @@ const OrderTracking = () => {
                 center={mapPosition}
                 zoom={13}
                 scrollWheelZoom={false}
-                style={{ height: "360px", width: "100%" }}
+                className="h-[280px] sm:h-[360px] w-full"
+                style={{ width: "100%" }}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -266,8 +267,8 @@ const OrderTracking = () => {
 
             {/* delivery partner */}
             {order.deliveryPartner && (
-              <div className="bg-white rounded-2xl border border-app-border p-5 flex items-center justify-between">
-                <div className="flex items-center gap-3">
+              <div className="bg-white rounded-2xl border border-app-border p-5 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="size-11 rounded-full bg-app-green text-white font-semibold flex items-center justify-center">
                     {order.deliveryPartner.name.charAt(0).toUpperCase()}
                   </div>
@@ -324,7 +325,7 @@ const OrderTracking = () => {
                       <p className="text-sm font-medium truncate">{item.name}</p>
                       <p className="text-xs text-app-text-light">x{item.quantity}</p>
                     </div>
-                    <p className="text-sm font-medium">
+                    <p className="text-sm font-medium shrink-0">
                       {currency}
                       {(item.price * item.quantity).toFixed(2)}
                     </p>

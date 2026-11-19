@@ -6,6 +6,7 @@ import { useCart } from '../context/CartContext';
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cartCount, setIsCartOpen } = useCart();   // ✅
   // const [cartOpen, setCartOpen] = useState(false);
 
@@ -16,6 +17,7 @@ const Navbar = () => {
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
       setSearchQuery("")
+      setMobileMenuOpen(false)
     }
   }
 
@@ -44,27 +46,27 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white sticky top-0 z-50 border-b border-gray-200 shadow-sm">
-      <div className="w-full px-6 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-[1fr_1fr_1.4fr] items-center h-16">
+      <div className="w-full px-4 sm:px-6 lg:px-10">
+        <div className="flex items-center justify-between h-16 gap-3">
 
-          {/* Logo - أقصى الشمال */}
-          <Link to="/" className="flex items-center gap-2 text-xl font-bold text-gray-800 shrink-0 justify-self-start">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 text-lg sm:text-xl font-bold text-gray-800 shrink-0">
             <BikeIcon className="w-6 h-6" />
             <span>Al-Dukkan</span>
           </Link>
 
-          {/* Middle Section - في نص الشاشة بالظبط */}
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600 justify-self-center">
+          {/* Middle Section */}
+          <div className="hidden md:flex flex-1 items-center justify-center gap-8 text-sm font-medium text-gray-600">
             <Link to="/" className="hover:text-orange-500 transition-colors">Home</Link>
             <Link to="/products" className="hover:text-orange-500 transition-colors">Products</Link>
             <Link to="/deals" className="text-orange-500 font-semibold">Deals</Link>
           </div>
 
           {/* Right Section: Search + Cart + User */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-1 sm:gap-2 lg:gap-4">
 
             {/* Search - أصغر، وأقرب للنص/Deals */}
-            <form onSubmit={handleSearch} className="hidden sm:flex w-40 lg:w-52">
+            <form onSubmit={handleSearch} className="hidden sm:flex w-32 md:w-40 lg:w-52">
               <div className="relative w-full">
                 <SearchIcon className="absolute top-1/2 -translate-y-1/2 left-3 w-4 h-4 text-gray-400" />
                 <input
@@ -100,7 +102,7 @@ const Navbar = () => {
             </button>
 
                 {/* User Menu */}
-                <div className="relative">
+                <div className="relative" ref={menuRef}>
                 {user ? (
                     <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 p-2">
                     <div className="size-7 rounded-full bg-green-950 text-white flex items-center justify-center font-semibold">
@@ -191,10 +193,58 @@ const Navbar = () => {
                     </>
                 )}
                 </div>
+
+                {/* Mobile nav toggle */}
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen((open) => !open)}
+                  className="md:hidden p-2.5 rounded-full hover:bg-orange-50 transition-all duration-200"
+                  aria-label="Toggle navigation menu"
+                  aria-expanded={mobileMenuOpen}
+                >
+                  {mobileMenuOpen ? (
+                    <XIcon className="w-5 h-5 text-gray-600" />
+                  ) : (
+                    <MenuIcon className="w-5 h-5 text-gray-600" />
+                  )}
+                </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Mobile nav panel */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-gray-200 bg-white px-4 sm:px-6 py-3 space-y-1 animate-fade-in">
+          {[
+            { to: "/", label: "Home" },
+            { to: "/products", label: "Products" },
+            { to: "/deals", label: "Deals" },
+          ].map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setMobileMenuOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+
+          <form onSubmit={handleSearch} className="sm:hidden pt-2">
+            <div className="relative w-full">
+              <SearchIcon className="absolute top-1/2 -translate-y-1/2 left-3 w-4 h-4 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-sm transition-all"
+              />
+            </div>
+          </form>
+        </div>
+      )}
     </nav>
   );
 };

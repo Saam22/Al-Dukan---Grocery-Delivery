@@ -24,7 +24,7 @@ function Hero() {
   const { hero_image, description } = heroSectionData;
 
   return (
-    <section className='relative overflow-hidden min-h-[600px] lg:min-h-[620px] mb-12 rounded-3xl flex items-center'>
+    <section className='relative overflow-hidden min-h-[520px] sm:min-h-[600px] lg:min-h-[620px] mb-10 sm:mb-12 rounded-2xl sm:rounded-3xl flex items-center'>
       {/* Background Image */}
       <img
         src={hero_image}
@@ -37,7 +37,7 @@ function Hero() {
 
       {/* Animated Content */}
       <motion.div
-        className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-20 w-full'
+        className='relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-0 py-14 sm:py-20 w-full'
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -55,7 +55,7 @@ function Hero() {
           {/* Headline */}
           <motion.h1
             variants={itemVariants}
-            className='font-serif text-4xl sm:text-5xl lg:text-6xl text-white leading-tight mb-5'
+            className='font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-5'
           >
             Nourish your home with{' '}
             <span className='text-orange-300'>Earth's finest</span>

@@ -4,12 +4,12 @@ import { MailIcon } from 'lucide-react'
 
 const Newsletter = () => {
   return (
-    <section className='bg-white py-18 px-4 sm:px-6 lg:px-8 rounded-3xl mx-auto shadow-xs mt-32 mb-20'>
+    <section className='bg-white py-12 sm:py-16 px-5 sm:px-8 lg:px-8 rounded-2xl sm:rounded-3xl mx-auto shadow-xs mt-16 sm:mt-24 mb-12 sm:mb-20'>
       <div className='max-w-2xl mx-auto text-center'>
-        <div className='size-16 bg-white rounded-xl flex-center mx-auto mb-6 shadow'>
-            <MailIcon className="size-8 text-app-green" strokeWidth={1.5}/>
+        <div className='size-14 sm:size-16 bg-white rounded-xl flex-center mx-auto mb-5 sm:mb-6 shadow'>
+            <MailIcon className="size-7 sm:size-8 text-app-green" strokeWidth={1.5}/>
         </div>
-        <h2 className='text-3xl font-semibold text-app-green mb-4'>Subscribe to our Newsletter</h2>
+        <h2 className='text-2xl sm:text-3xl font-semibold text-app-green mb-4'>Subscribe to our Newsletter</h2>
         <p className='text-app-text-light mb-8 text-base'>Get weekly updates on fresh produce, seasonal offers, and exclusive discounts right to your inbox.</p>
         <form onSubmit={(e=>e.preventDefault())} className='flex flex-col sm:flex-row gap-3 max-w-md mx-auto'>
             <input type="email" placeholder="Enter your email address" required 

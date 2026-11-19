@@ -30,7 +30,7 @@ function SearchResults() {
     <div className="min-h-screen bg-app-cream">
       <div className="max-w-7xl px-4 sm:px-6 lg:px-8 py-6 mx-auto">
         {/* breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-app-text-light mb-6">
+        <nav className="flex items-center gap-2 text-sm text-app-text-light mb-6 flex-wrap">
           <Link to="/" className="hover:text-app-green transition-colors">
             <Home className="size-4" />
           </Link>
@@ -40,7 +40,7 @@ function SearchResults() {
 
         {/* header */}
         <div className="mb-6">
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-lg sm:text-xl font-semibold break-words">
             Search results for "{query}"
           </h1>
           <p className="text-sm text-app-text-light mt-0.5">
@@ -67,7 +67,7 @@ function SearchResults() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

@@ -31,7 +31,7 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* details */}
-      <div className="p-3.5 text-zinc-700">
+      <div className="p-3 sm:p-3.5 text-zinc-700">
         <h2 className="text-sm leading-snug mb-1.5 line-clamp-2">{product.name}</h2>
         {/* raiting */}
         {product.rating >0 && (
@@ -41,12 +41,12 @@ const ProductCard = ({ product }) => {
               <span className="text-xs text-app-text-light">({product.reviewCount})</span>
             </div>
         )}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 truncate">
-            <span className="text-base font-medium">{currency} {product.price.toFixed(1)}</span>
-            <span className="text-xs text-app-text-light block">{product.unit}</span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-1 overflow-hidden">
+            <span className="text-sm sm:text-base font-semibold shrink-0">{currency} {product.price.toFixed(1)}</span>
+            <span className="text-[11px] sm:text-xs text-app-text-light block shrink-0">{product.unit}</span>
             {product.originalPrice > product.price &&
-             <span className="text-xs text-app-text-light line-through ml-1.5">
+             <span className="hidden sm:inline text-xs text-app-text-light line-through ml-1.5 shrink-0">
               {currency} {product.originalPrice.toFixed(1)}
             </span> }
           </div>

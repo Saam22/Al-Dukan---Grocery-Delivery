@@ -79,12 +79,12 @@ const Cartsidebar = () => {
                         <div className='space-y-4'>
                             {items.map((item) => (
                                 <div key={item.product._id} className='flex gap-3 pb-4 border-b border-app-border last:border-0'>
-                                    <img src={item.product.image} alt={item.product.title}
+                                    <img src={item.product.image} alt={item.product.name || item.product.title}
                                         className='w-16 h-16 object-cover rounded-lg bg-app-cream shrink-0' />
 
                                     <div className='flex-1 min-w-0 flex flex-col justify-between'>
                                         <div>
-                                            <p className='font-semibold text-sm truncate'>{item.product.title}</p>
+                                            <p className='font-semibold text-sm truncate'>{item.product.name || item.product.title}</p>
                                             <p className='text-xs text-app-grey truncate'>{item.product.description}</p>
                                         </div>
                                         <div className='flex items-center justify-between mt-2'>

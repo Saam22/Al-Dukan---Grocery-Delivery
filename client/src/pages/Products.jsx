@@ -101,14 +101,14 @@ const fetchProducts = async () => {
             {/* main content */}
           <main className="flex-1">
             {/* header */}
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h1>{activeCategory ? activeCategory.name : "All Products"}</h1>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+              <div className="min-w-0">
+                <h1 className="text-xl sm:text-2xl font-semibold truncate">{activeCategory ? activeCategory.name : "All Products"}</h1>
                 <p className="text-sm text-app-text-light mt-0.5">
                   {products.length} products found
                 </p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between gap-2 sm:gap-3">
                 {/* mobile filters button */}
                 <button
                   type="button"
@@ -162,7 +162,7 @@ const fetchProducts = async () => {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                 {products.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}

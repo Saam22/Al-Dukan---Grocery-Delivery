@@ -346,8 +346,8 @@ const Addresses = () => {
                   : "border-app-border bg-white hover:border-app-green/40"
                 }`}
             >
-              <div className="mb-4 flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
+              <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${address.isDefault ? "bg-app-green text-white" : "bg-zinc-100 text-zinc-700"}`}>
                     {address.label?.toLowerCase() === "work" ? <Building2 size={18} /> : <Home size={18} />}
                   </div>
@@ -363,7 +363,7 @@ const Addresses = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   {!address.isDefault && (
                     <button
                       type="button"
