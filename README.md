@@ -4,6 +4,20 @@ A modern, responsive grocery delivery web application built with **React**, **Vi
 
 > This is a frontend-only implementation. Product data and authentication are currently mocked, so no backend is required to run the app.
 
+## Screenshots
+
+### Home
+
+![Al-Dukkan home page](screenshots/home.png)
+
+### Products
+
+![Al-Dukkan products page](screenshots/products.png)
+
+### Flash Deals
+
+![Al-Dukkan flash deals page](screenshots/deals.png)
+
 ## Features
 
 - Category browsing and a featured products landing page
